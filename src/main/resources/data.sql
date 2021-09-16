@@ -1,4 +1,4 @@
-INSERT INTO USUARIO(nome, email, senha) VALUES('Jorge', 'jorgin@email.com', '123456');
+INSERT INTO USUARIO(nome, email, senha) VALUES('Jorge', 'jorgin@email.com', '$2a$10$XuUWDyueuxsI.UCyNsjyue5ONYyZWHksf6W2s5spZUTVUd1/shKaO');
 
 INSERT INTO CARRO(marca,modelo) VALUES('Volkswagen', 'fox');
 INSERT INTO CARRO(marca,modelo) VALUES('Honda', 'civic');
