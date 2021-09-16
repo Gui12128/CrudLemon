@@ -20,7 +20,7 @@ public class LoginForm {
 		this.senha = senha;
 	}
 	public UsernamePasswordAuthenticationToken converter() {
-		return new UsernamePasswordAuthenticationToken(senha, email);
+		return new UsernamePasswordAuthenticationToken(email,senha);
 	}
 	
 	
