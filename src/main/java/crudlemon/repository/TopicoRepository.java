@@ -11,6 +11,6 @@ import crudlemon.modelo.Topico;
 public interface TopicoRepository extends JpaRepository<Topico, Long> {
 
 	Page<Topico> findByCarro_Marca(String marcaCarro, Pageable paginacao);
-	Page<Topico> findByCarro_Modelo(String modeloCarro, Pageable paginacao);
+	Page<Topico> findByUsuario_Email(String emailUsuario, Pageable paginacao);
 
 }

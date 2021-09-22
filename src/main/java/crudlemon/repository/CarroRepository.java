@@ -8,6 +8,5 @@ import crudlemon.modelo.Carro;
 public interface CarroRepository extends JpaRepository<Carro, Long> {
 
 	Carro findByMarca(String marcaCarro);
-	Carro findByModelo(String modeloCarro);
 
 }

@@ -32,6 +32,7 @@ import crudlemon.controller.form.TopicoForm;
 import crudlemon.modelo.Topico;
 import crudlemon.repository.CarroRepository;
 import crudlemon.repository.TopicoRepository;
+import crudlemon.repository.UsuarioRepository;
 
 
 @RestController
@@ -43,6 +44,11 @@ public class TopicoController {
 	
 	@Autowired
 	private CarroRepository carroRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	
 	
 	@GetMapping																																																																																	
 	@Cacheable(value = "listaDeTopicos")
@@ -62,7 +68,7 @@ public class TopicoController {
 	@Transactional
 	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
-		Topico topico = form.converter(carroRepository);
+		Topico topico = form.converter(carroRepository, usuarioRepository);
 		topicoRepository.save(topico);
 
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri(); 
@@ -72,6 +78,7 @@ public class TopicoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<DetalhesDoTopicoDTO> detalhar(@PathVariable Long id) {
 		Optional<Topico> topico = topicoRepository.findById(id);
+		
 		if (topico.isPresent()) {
 			return ResponseEntity.ok(new DetalhesDoTopicoDTO(topico.get()));
 		}

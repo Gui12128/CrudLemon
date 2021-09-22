@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.sun.istack.NotNull;
 
@@ -27,7 +30,7 @@ public class Topico {
 		@Enumerated(EnumType.STRING)
 		private StatusTopico status = StatusTopico.NAO_RESPONDIDO;
 		@ManyToOne
-		private Usuario autor;
+		private Usuario usuario;
 		@ManyToOne
 		@NotNull
 		private Carro carro;
@@ -37,10 +40,11 @@ public class Topico {
 		public Topico() {
 		}
 		
-		public Topico(String titulo, String mensagem, Carro carro) {
+		public Topico(String titulo, String mensagem, Carro carro, Usuario usuario) {
 			this.titulo = titulo;
 			this.mensagem = mensagem;
 			this.carro = carro;
+			this.usuario = usuario;
 		}
 
 		@Override
@@ -108,12 +112,14 @@ public class Topico {
 			this.status = status;
 		}
 
-		public Usuario getAutor() {
-			return autor;
+		
+		
+		public Usuario getUsuario() {
+			return usuario;
 		}
 
-		public void setAutor(Usuario autor) {
-			this.autor = autor;
+		public void setUsuario(Usuario usuario) {
+			this.usuario = usuario;
 		}
 
 		public Carro getCarro() {

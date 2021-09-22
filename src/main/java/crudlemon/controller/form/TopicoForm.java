@@ -8,7 +8,9 @@ import com.sun.istack.NotNull;
 
 import crudlemon.modelo.Carro;
 import crudlemon.modelo.Topico;
+import crudlemon.modelo.Usuario;
 import crudlemon.repository.CarroRepository;
+import crudlemon.repository.UsuarioRepository;
 
 public class TopicoForm {
 
@@ -18,8 +20,8 @@ public class TopicoForm {
 	private String mensagem;
 	@NotNull @NotEmpty 
 	private String marcaCarro;
-	@NotNull @NotEmpty 
-	private String modeloCarro;
+	@NotNull
+	private String emailUsuario;
 
 	public String getTitulo() {
 		return titulo;
@@ -44,24 +46,26 @@ public class TopicoForm {
 	public void setmarcaCarro(String marcaCarro) {
 		this.marcaCarro = marcaCarro;
 	}
-	
-	public String getModeloCarro() {
-		return modeloCarro;
+
+	public String getUsuarioEmail() {
+		return emailUsuario;
 	}
 
-	public void setModeloCarro(String modeloCarro) {
-		this.modeloCarro = modeloCarro;
+	public void setUsuarioEmail(String usuarioEmail) {
+		this.emailUsuario = usuarioEmail;
 	}
 
-	public Topico converter(CarroRepository carroRepository) {
+	public Topico converter(CarroRepository carroRepository, UsuarioRepository usuarioRepository) {
 		Carro carro = carroRepository.findByMarca(marcaCarro);
-		
+		Usuario usuario = usuarioRepository.findByEmail(emailUsuario);
+			
 		if (carro == null) {
 			throw new NullPointerException("Marca não existe");
 		}
-		
-		return new Topico(titulo, mensagem, carro);
-		
+		return new Topico(titulo, mensagem, carro, usuario);
+			
 	}
-
 }
+	
+
+

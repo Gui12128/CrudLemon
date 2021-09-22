@@ -13,6 +13,7 @@ public class TopicoDTO {
 	private String mensagem;
 	private LocalDateTime dataCriacao;
 	private String marcaCarro;
+	private String emailUsuario;
 	
 	public TopicoDTO(Topico topico) {
 		this.id = topico.getId();
@@ -20,6 +21,7 @@ public class TopicoDTO {
 		this.mensagem = topico.getMensagem();
 		this.dataCriacao = topico.getDataCriacao();
 		this.marcaCarro = topico.getCarro().getMarca();
+		this.emailUsuario = topico.getUsuario().getEmail();
 		
 	}
 	
@@ -38,6 +40,11 @@ public class TopicoDTO {
 	public String getMensagem() {
 		return mensagem;
 	}
+	
+	public String getUsuarioEmail() {
+		return emailUsuario;
+	}
+
 	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
