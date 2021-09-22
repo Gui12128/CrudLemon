@@ -13,6 +13,7 @@ public class TopicoDTO {
 	private String mensagem;
 	private LocalDateTime dataCriacao;
 	private String marcaCarro;
+	private String modeloCarro;
 	private String emailUsuario;
 	
 	public TopicoDTO(Topico topico) {
@@ -20,6 +21,7 @@ public class TopicoDTO {
 		this.titulo = topico.getTitulo();
 		this.mensagem = topico.getMensagem();
 		this.dataCriacao = topico.getDataCriacao();
+		this.modeloCarro = topico.getCarro().getmodelo();
 		this.marcaCarro = topico.getCarro().getMarca();
 		this.emailUsuario = topico.getUsuario().getEmail();
 		
@@ -32,6 +34,10 @@ public class TopicoDTO {
 	
 	public String getMarcaCarro() {
 		return marcaCarro;
+	}
+
+	public String getModeloCarro() {
+		return modeloCarro;
 	}
 
 	public String getTitulo() {

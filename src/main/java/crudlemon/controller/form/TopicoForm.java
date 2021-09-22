@@ -21,6 +21,8 @@ public class TopicoForm {
 	@NotNull @NotEmpty 
 	private String marcaCarro;
 	@NotNull
+	private String modeloCarro;
+	@NotNull
 	private String emailUsuario;
 
 	public String getTitulo() {
@@ -47,6 +49,15 @@ public class TopicoForm {
 		this.marcaCarro = marcaCarro;
 	}
 
+	
+	public String getModeloCarro() {
+		return modeloCarro;
+	}
+
+	public void setModeloCarro(String modeloCarro) {
+		this.modeloCarro = modeloCarro;
+	}
+
 	public String getUsuarioEmail() {
 		return emailUsuario;
 	}
@@ -57,11 +68,15 @@ public class TopicoForm {
 
 	public Topico converter(CarroRepository carroRepository, UsuarioRepository usuarioRepository) {
 		Carro carro = carroRepository.findByMarca(marcaCarro);
+		carro = carroRepository.findByModelo(modeloCarro);
 		Usuario usuario = usuarioRepository.findByEmail(emailUsuario);
 			
 		if (carro == null) {
-			throw new NullPointerException("Marca não existe");
+			throw new NullPointerException("Marca ou modelo não existe");
+		} else if (usuario == null) {
+			throw new NullPointerException("Email não cadastrado");
 		}
+		
 		return new Topico(titulo, mensagem, carro, usuario);
 			
 	}
