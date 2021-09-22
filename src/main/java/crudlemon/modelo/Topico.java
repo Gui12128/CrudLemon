@@ -113,7 +113,6 @@ public class Topico {
 		}
 
 		
-		
 		public Usuario getUsuario() {
 			return usuario;
 		}

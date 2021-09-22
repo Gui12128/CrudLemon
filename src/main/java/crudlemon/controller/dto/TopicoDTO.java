@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
 
+import crudlemon.modelo.StatusTopico;
 import crudlemon.modelo.Topico;
 
 public class TopicoDTO {
 
 	private Long id;
+	private StatusTopico status;
 	private String titulo;
 	private String mensagem;
 	private LocalDateTime dataCriacao;
@@ -18,6 +20,7 @@ public class TopicoDTO {
 	
 	public TopicoDTO(Topico topico) {
 		this.id = topico.getId();
+		this.status = topico.getStatus();
 		this.titulo = topico.getTitulo();
 		this.mensagem = topico.getMensagem();
 		this.dataCriacao = topico.getDataCriacao();
@@ -47,6 +50,10 @@ public class TopicoDTO {
 		return mensagem;
 	}
 	
+	public StatusTopico getStatus() {
+		return status;
+	}
+	
 	public String getUsuarioEmail() {
 		return emailUsuario;
 	}
@@ -58,5 +65,8 @@ public class TopicoDTO {
 	public static Page<TopicoDTO> converter(Page<Topico> topicos) {
 		return topicos.map(TopicoDTO::new);
 	}
+
+
+
 	
 }
