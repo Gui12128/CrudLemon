@@ -15,6 +15,8 @@ public class DetalhesDoTopicoDTO {
 	private String mensagem;
 	private LocalDateTime dataCriacao;
 	private String nomeAutor;
+	private String marcaCarro;
+	private String modeloCarro;
 	private StatusTopico status;
 	private List<RespostaDTO> respostas;
 	
@@ -24,6 +26,8 @@ public class DetalhesDoTopicoDTO {
 		this.dataCriacao = topico.getDataCriacao();
 		this.nomeAutor = topico.getUsuario().getNome();
 		this.status = topico.getStatus();
+		this.marcaCarro = topico.getCarro().getMarca();
+		this.modeloCarro = topico.getCarro().getmodelo();
 		this.mensagem = topico.getMensagem();
 		this.respostas = new ArrayList<>();
 		this.respostas.addAll(topico.getRespostas().stream().map(RespostaDTO::new).collect(Collectors.toList()));
@@ -43,6 +47,14 @@ public class DetalhesDoTopicoDTO {
 
 	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
+	}
+
+	public String getMarcaCarro() {
+		return marcaCarro;
+	}
+
+	public String getModeloCarro() {
+		return modeloCarro;
 	}
 
 	public String getNomeAutor() {

@@ -10,21 +10,17 @@ import crudlemon.modelo.Topico;
 public class TopicoDTO {
 
 	private Long id;
-	private StatusTopico status;
 	private String titulo;
 	private String mensagem;
 	private LocalDateTime dataCriacao;
 	private String marcaCarro;
-	private String modeloCarro;
 	private String emailUsuario;
 	
 	public TopicoDTO(Topico topico) {
 		this.id = topico.getId();
-		this.status = topico.getStatus();
 		this.titulo = topico.getTitulo();
 		this.mensagem = topico.getMensagem();
 		this.dataCriacao = topico.getDataCriacao();
-		this.modeloCarro = topico.getCarro().getmodelo();
 		this.marcaCarro = topico.getCarro().getMarca();
 		this.emailUsuario = topico.getUsuario().getEmail();
 		
@@ -39,19 +35,12 @@ public class TopicoDTO {
 		return marcaCarro;
 	}
 
-	public String getModeloCarro() {
-		return modeloCarro;
-	}
 
 	public String getTitulo() {
 		return titulo;
 	}
 	public String getMensagem() {
 		return mensagem;
-	}
-	
-	public StatusTopico getStatus() {
-		return status;
 	}
 	
 	public String getUsuarioEmail() {
