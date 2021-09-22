@@ -44,11 +44,10 @@ public class TopicoController {
 	@Autowired
 	private CarroRepository carroRepository;
 	
-	@GetMapping
+	@GetMapping																																																																																	
 	@Cacheable(value = "listaDeTopicos")
-	public Page<TopicoDTO> lista(@RequestParam (required = false) String marcaCarro, 
+	public Page<TopicoDTO> lista(@RequestParam (required = false) String marcaCarro, 			
 			@PageableDefault(sort = "dataCriacao", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
-		
 		
 		if (marcaCarro == null) {
 			Page<Topico> topicos = topicoRepository.findAll(paginacao);
@@ -60,10 +59,12 @@ public class TopicoController {
 	}
 	
 	@PostMapping
+	@Transactional
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(carroRepository);
 		topicoRepository.save(topico);
-		
+
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri(); 
 		return ResponseEntity.created(uri).body(new TopicoDTO(topico));
 	}
