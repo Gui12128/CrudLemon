@@ -1,6 +1,7 @@
 package crudlemon.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -9,11 +10,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +35,7 @@ import crudlemon.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/topicos")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TopicoController {
 	
 	@Autowired
@@ -52,14 +51,13 @@ public class TopicoController {
 	
 	@GetMapping																																																																																	
 	@Cacheable(value = "listaDeTopicos")
-	public Page<TopicoDTO> lista(@RequestParam (required = false) String marcaCarro, 			
-			@PageableDefault(sort = "dataCriacao", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+	public List<TopicoDTO> lista(@RequestParam (required = false) String marcaCarro) {
 		
 		if (marcaCarro == null) {
-			Page<Topico> topicos = topicoRepository.findAll(paginacao);
+			List<Topico> topicos = topicoRepository.findAll();
 			return TopicoDTO.converter(topicos);
 		} else {
-			Page<Topico> topicos = topicoRepository.findByCarro_Marca(marcaCarro, paginacao);
+			List<Topico> topicos = topicoRepository.findByCarro_Marca(marcaCarro);
 			return TopicoDTO.converter(topicos);
 		}
 	}
@@ -87,7 +85,6 @@ public class TopicoController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDTO> atualizar(@PathVariable Long id,@RequestBody @Valid AtualizacaoTopicoForm form){
 		Optional<Topico> optional = topicoRepository.findById(id);
 		if (optional.isPresent()) {

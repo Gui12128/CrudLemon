@@ -9,7 +9,7 @@ public class RespostaDTO {
 	private Long id;
 	private String mensagem;
 	private LocalDateTime dataCriacao;
-	private String nomeAutor;
+	private String nomeUsuario;
 	private String marcaCarro;
 	private String modeloCarro;
 	
@@ -17,7 +17,7 @@ public class RespostaDTO {
 		this.id = resposta.getId();
 		this.dataCriacao = resposta.getDataCriacao();
 		this.mensagem = resposta.getMensagem();
-		this.nomeAutor = resposta.getAutor().getNome();
+		this.nomeUsuario = resposta.getUsuario().getNome();
 		this.marcaCarro = resposta.getCarro().getMarca();
 		this.modeloCarro = resposta.getCarro().getmodelo();
 	}
@@ -36,7 +36,7 @@ public class RespostaDTO {
 	}
 
 	public String getNomeAutor() {
-		return nomeAutor;
+		return nomeUsuario;
 	}
 
 

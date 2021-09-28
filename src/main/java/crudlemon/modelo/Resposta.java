@@ -20,7 +20,7 @@ public class Resposta {
 	@ManyToOne
 	private Carro carro;
 	@ManyToOne
-	private Usuario autor;
+	private Usuario usuario;
 	private Boolean solucao = false;
 
 	@Override
@@ -89,12 +89,13 @@ public class Resposta {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Usuario getAutor() {
-		return autor;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setAutor(Usuario autor) {
-		this.autor = autor;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Boolean getSolucao() {
