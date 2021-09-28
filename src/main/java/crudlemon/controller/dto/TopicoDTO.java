@@ -1,10 +1,9 @@
 package crudlemon.controller.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.data.domain.Page;
-
-import crudlemon.modelo.StatusTopico;
 import crudlemon.modelo.Topico;
 
 public class TopicoDTO {
@@ -14,6 +13,7 @@ public class TopicoDTO {
 	private String mensagem;
 	private LocalDateTime dataCriacao;
 	private String marcaCarro;
+	private String modeloCarro;
 	private String emailUsuario;
 	
 	public TopicoDTO(Topico topico) {
@@ -22,6 +22,7 @@ public class TopicoDTO {
 		this.mensagem = topico.getMensagem();
 		this.dataCriacao = topico.getDataCriacao();
 		this.marcaCarro = topico.getCarro().getMarca();
+		this.modeloCarro = topico.getCarro().getmodelo();
 		this.emailUsuario = topico.getUsuario().getEmail();
 		
 	}
@@ -33,6 +34,11 @@ public class TopicoDTO {
 	
 	public String getMarcaCarro() {
 		return marcaCarro;
+	}
+	
+
+	public String getModeloCarro() {
+		return modeloCarro;
 	}
 
 
@@ -51,8 +57,15 @@ public class TopicoDTO {
 		return dataCriacao;
 	}
 
-	public static Page<TopicoDTO> converter(Page<Topico> topicos) {
-		return topicos.map(TopicoDTO::new);
+	public static List<TopicoDTO> converter(List<Topico> topicos) {
+		
+		var listaDeTopicos = new ArrayList<TopicoDTO>();
+		
+		topicos.forEach(topico -> {
+			listaDeTopicos.add(new TopicoDTO(topico));
+		});
+		
+		return listaDeTopicos;
 	}
 
 
